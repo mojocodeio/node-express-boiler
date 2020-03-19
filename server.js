@@ -1,10 +1,12 @@
 const express = require('express');
 
+/** controllers */
+const auth = require('./controllers/auth');
+
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('Hello node-express-boiler')
-})
+/** routes */
+app.use('/auth', auth);
 
 app.listen(5000, () => {
     console.log('SERVER RUNNING ON PORT')
