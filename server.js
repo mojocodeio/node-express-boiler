@@ -1,10 +1,16 @@
 require('dotenv').config();
 const PORT = process.env.PORT || 5000;
+const express = require('express');
+const mongoose = require('mongoose');
 
 /** ESTABLISH DATABASE CONNECTION */
-require('./database');
+const dbUri = process.env.MONGODB_URL || 'mongodb://localhost/weather_data';
+const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName: 'sample_weatherdata'
+};
 
-const express = require('express');
 const app = express();
 
 /** controllers */
@@ -15,6 +21,12 @@ const weather = require('./controllers/weather')
 app.use('/auth', auth);
 app.use('/weather', weather);
 
-app.listen(PORT, () => {
-    console.log('SERVER RUNNING ON PORT:' + PORT);
-});
+mongoose.connect(dbUri, options)
+    .then(() => {
+        console.log('Database connection established!');
+
+        app.listen(PORT, () => {
+            console.log('SERVER RUNNING ON PORT:' + PORT);
+        });
+    })
+    .catch(err => console.log(err))
