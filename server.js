@@ -19,6 +19,7 @@ const weather = require('./controllers/weather');
 /** routes */
 app.use('/auth', auth);
 app.use('/weather', weather);
+console.log('Hello nodemon and concurrently hello hlel');
 
 mongoose.connect(mongoAtlasUri, configOptions)
     .then(() => {
