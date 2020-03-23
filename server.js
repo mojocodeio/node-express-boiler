@@ -1,5 +1,4 @@
 require('dotenv').config();
-const PORT = process.env.PORT || 5000;
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -13,6 +12,13 @@ const configOptions = {
     dbName: 'sample_weatherdata'
 };
 
+mongoose.connect(mongoAtlasUri, configOptions);
+mongoose.connection
+  .once('open', () => console.log('Good to go!'))
+  .on('err', () => {
+    console.warn('Warning Server', error)
+  });
+
 /** controllers */
 const auth = require('./controllers/auth');
 const weather = require('./controllers/weather');
@@ -25,16 +31,7 @@ app.use('/auth', auth);
 app.use('/weather', weather);
 
 app.get('*', (req, res) => {
-    console.log('req made!!')
-    res.sendFile(path.resolve(__dirname, '..client/build', 'index.html'))
+    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
 });
 
-mongoose.connect(mongoAtlasUri, configOptions)
-    .then(() => {
-        console.log('Database connection established!');
-
-        app.listen(PORT, () => {
-            console.log('SERVER RUNNING ON PORT:' + PORT);
-        });
-    })
-    .catch(err => console.log(err))
+module.exports = app;

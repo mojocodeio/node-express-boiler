@@ -13,4 +13,16 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/joey', (req, res) => {
+    Weather.find({ name: 'Joey D' }, (err, person) => {
+        if (err) {
+            console.log(err);
+            res.json(err);
+        }
+        console.log('person:', person)
+        res.json(person)
+    })
+
+})
+
 module.exports = router;
