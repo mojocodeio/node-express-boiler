@@ -1,3 +1,5 @@
+import deep from 'deep-get-set';
+
 const initialConfig = {
     baseUrl: 'http://localhost:3000',
     authApi: '/auth',
@@ -14,4 +16,32 @@ export const configReducer = (state = initialConfig, action) => {
 };
 
 export default configReducer;
+
+/** selectors */
+export const getConfigReducer = state => {
+    return deep(state, 'config');
+}
+
+export const getBaseUrl = state => {
+    const config = getConfigReducer(state);
+    return deep(config, 'baseUrl');
+}
+
+export const getAuthApi = state => {
+    const config = getConfigReducer(state);
+    return deep(config, 'authApi');
+}
+
+export const getLoginApi = state => {
+    const config = getConfigReducer(state);
+    return deep(config, 'loginApi');
+}
+
+export const getFullLoginUrl = state => {
+    const baseUrl = getBaseUrl(state);
+    const authApi = getAuthApi(state);
+    const loginApi = getLoginApi(state);
+    return `${baseUrl}${authApi}${loginApi}`
+}
+
 
