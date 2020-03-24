@@ -1,17 +1,19 @@
 const express = require('express');
 const router = express.Router();
-
-router.get('/', (req, res) => {
-    console.log('Request session:', req.session.cookie)
-    res.send('hello auth route')
-})
-
-router.post('/register', (req, res) => {
-    res.send('Hello, I am the register route')
-});
+const User = require('../models/user');
 
 router.post('/login', (req, res) => {
-    res.send('Hello, I am the login route')
+    const { userName } = req.body;
+    new User({
+        userName,
+    }).save((err, user) => {
+        if (err) {
+            console.log('err:', err);
+            res.json(err);
+        }
+        console.log('weather:', user);
+        res.json(user);
+    });
 });
 
 module.exports = router;

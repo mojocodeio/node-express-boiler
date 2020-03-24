@@ -1,5 +1,6 @@
 const initialConfig = {
     baseUrl: 'http://localhost:3000',
+    authApi: '/auth',
     loginApi: '/login',
     logoutApi: '/logout',
     dashboardApi: '/dashboard',
