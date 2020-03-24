@@ -29,7 +29,6 @@ export const Navbar = ({
                             to={navLink.path}
                             key={index}
                             className={styles.navLink}
-                            activeClassName={styles.activeNavlink}
                         >
                             {navLink.name}
                         </NavLink>
@@ -47,7 +46,6 @@ export const Navbar = ({
                             to={navLink.path}
                             key={index}
                             className={styles.navLink}
-                            activeClassName={styles.activeNavlink}
                         >
                             {navLink.name}
                         </NavLink>
