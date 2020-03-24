@@ -14,3 +14,4 @@ export const configReducer = (state = initialConfig, action) => {
 };
 
 export default configReducer;
+
