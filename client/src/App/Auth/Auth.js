@@ -1,6 +1,7 @@
 import React from 'react';
 
-//** styles */
+/** styles */
+import styles from './Auth.module.css';
 
 export const Auth = () => {
     return (
