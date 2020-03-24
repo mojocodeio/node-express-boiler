@@ -1,4 +1,3 @@
-import { createSelector } from 'reselect';
 import deep from 'deep-get-set';
 
 /** action types */
@@ -22,16 +21,14 @@ export const authReducer = (state = {}, action) => {
 export default authReducer;
 
 /** selectors */
-export const getAuthReducer = createSelector(
-    state => deep(state, 'auth'),
-);
+export const getAuthReducer = state => deep(state, 'auth');
 
-export const getUserId = createSelector(
-    getAuthReducer,
-    auth => deep(auth, 'userId') || '',
-);
+export const getUserId = state => {
+    const auth = getAuthReducer(state);
+    return deep(auth, 'userId');
+};
 
-export const getUserName = createSelector(
-    getAuthReducer,
-    auth => deep(auth, 'userName') || '',
-);
+export const getUserName = state => {
+    const auth = getAuthReducer(state);
+    return deep(auth, 'userName');
+};

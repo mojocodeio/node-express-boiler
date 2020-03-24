@@ -2,7 +2,7 @@ export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 
 export const handleUserLogin = (userName, loginUrl) => dispatch => {
     const body = JSON.stringify({ userName });
-    console.log('handleUserLogin body:', body)
+
     fetch(loginUrl, {
         method: 'POST',
         body,
