@@ -1,8 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+/** components */
 import { NavLink } from 'react-router-dom';
 
 /** styles */
 import styles from './Navbar.module.css';
+
+/** selectors */
+import { getUserId } from '../Auth/authReducer';
 
 /** helpers */
 import {
@@ -11,9 +18,9 @@ import {
 } from './helpers';
 
 export const Navbar = ({
-    isAuthenticated,
+    userId,
 }) => {
-    if (isAuthenticated) {
+    if (userId) {
         return (
             <nav className={styles.nav}>
                 {authenticatedLinks.map((navLink, index) => {
@@ -50,4 +57,12 @@ export const Navbar = ({
     );
 };
 
-export default Navbar;
+Navbar.propTypes = {
+    userId: PropTypes.string
+};
+
+const mapStateToProps = state => ({
+    userId: getUserId(state),
+});
+
+export default connect(mapStateToProps)(Navbar);
