@@ -3,6 +3,7 @@ import deep from 'deep-get-set';
 /** action types */
 import {
     USER_LOGIN_SUCCESS,
+    USER_LOGIN_FAILURE,
 } from './actions';
 
 export const authReducer = (state = {}, action) => {
@@ -12,6 +13,12 @@ export const authReducer = (state = {}, action) => {
                 ...state,
                 userId: action.userId,
                 userName: action.userName,
+            };
+        case USER_LOGIN_FAILURE:
+            console.log(action)
+            return {
+                ...state,
+                error: action.error
             };
         default:
             return state;

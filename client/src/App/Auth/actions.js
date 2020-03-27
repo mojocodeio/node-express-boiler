@@ -1,4 +1,5 @@
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
+export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
 
 export const handleUserLogin = (userName, loginUrl) => dispatch => {
     const body = JSON.stringify({ userName });
@@ -17,5 +18,8 @@ export const handleUserLogin = (userName, loginUrl) => dispatch => {
             userId: user.userId,
             userName: user.userName,
         }))
-        .catch(error => console.log('error in handleUserLogin', error))
+        .catch(error => dispatch({
+            type: USER_LOGIN_FAILURE,
+            error
+        }))
 };

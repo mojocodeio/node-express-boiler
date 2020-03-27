@@ -3,15 +3,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
-const session = require('express-session')
+// const session = require('express-session');
 const app = express();
 
 /** DATABASE CONFIG */
 const mongoAtlasUri = process.env.MONGODB_URL || 'mongodb://localhost/weather_data';
 const configOptions = {
     useNewUrlParser: true,
+    dbName: 'sample_weatherdata',
+    useCreateIndex: true,
     useUnifiedTopology: true,
-    dbName: 'sample_weatherdata'
 };
 
 mongoose.connect(mongoAtlasUri, configOptions);
@@ -31,16 +32,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.resolve(__dirname, './client/build')));
 
 /** Express session still needs to be set up */
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'secret',
-  name: 'sid',
-  saveUninitialized: false,
-  resave: false,
-  cookie: {
-    maxAge: 1000*60*60*2,
-    sameSite: true,
-  }
-}));
+// app.use(session({
+//   secret: process.env.SESSION_SECRET || 'secret',
+//   name: 'sid',
+//   saveUninitialized: false,
+//   resave: false,
+//   cookie: {
+//     maxAge: 1000*60*60*2,
+//     sameSite: true,
+//   }
+// }));
 
 /** routes */
 app.use('/auth', auth);
