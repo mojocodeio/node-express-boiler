@@ -18,3 +18,5 @@ Mongoose/Mongodb Resources
 NodeJS Resources
 
 - Named Exports vs Default Exports: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
+- User Auth Middleware: https://scotch.io/tutorials/route-middleware-to-check-if-a-user-is-authenticated-in-node-js
+- Using Express Middleware - https://expressjs.com/en/guide/using-middleware.html
