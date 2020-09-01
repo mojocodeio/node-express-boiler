@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 const User = require('../models/user');
 
@@ -11,21 +12,39 @@ const generateErrorMessageByCode = code => {
     }
 }
 
-router.post('/login', (req, res, next) => {
-    const { userName } = req.body;
-    new User({ userName }).save((err, user) => {
+router.post('/register', (req, res) => {
+    const {
+        userName,
+        password,
+    } = req.body;
+    bcrypt.hash(password, 10, (err, hash) => {
         if (err) {
-            const newError = new Error(generateErrorMessageByCode(err.code));
-            next(newError)
-        } else {
-            res.json({
-                userId: user._id,
-                userName: user.userName,
-            });
+            console.log('err', err)
+            res.send('Error hashing password with bcrypt')
         }
 
+        let user = new User({ userName, password: hash })
+        user.save()
+            .then(data => res.send(data))
+            .catch(err => res.send(err))
     });
 });
+
+// router.post('/login', (req, res, next) => {
+//     const { userName } = req.body;
+//     new User({ userName }).save((err, user) => {
+//         if (err) {
+//             const newError = new Error(generateErrorMessageByCode(err.code));
+//             next(newError)
+//         } else {
+//             res.json({
+//                 userId: user._id,
+//                 userName: user.userName,
+//             });
+//         }
+
+//     });
+// });
 
 router.post('/logout', (req, res) => {
     res.send({
