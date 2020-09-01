@@ -30,21 +30,31 @@ router.post('/register', (req, res) => {
     });
 });
 
-// router.post('/login', (req, res, next) => {
-//     const { userName } = req.body;
-//     new User({ userName }).save((err, user) => {
-//         if (err) {
-//             const newError = new Error(generateErrorMessageByCode(err.code));
-//             next(newError)
-//         } else {
-//             res.json({
-//                 userId: user._id,
-//                 userName: user.userName,
-//             });
-//         }
+router.post('/login', (req, res, next) => {
+    const {
+        userName,
+        password,
+    } = req.body;
 
-//     });
-// });
+    User.findOne({ userName }, (err, user) => {
+        if (err) {
+            console.log('err', err)
+            res.send('Could not find user by that userName')
+        }
+
+        bcrypt.compare(password, user.password, (err, result) => {
+            if (err) {
+                console.log('err', err)
+                res.send('Error checking passwords')
+            } else if (!result) {
+                res.send('Passwords did not match')
+            } else {
+                console.log('user', user)
+                res.send(user)
+            }
+        });
+    });
+});
 
 router.post('/logout', (req, res) => {
     res.send({
