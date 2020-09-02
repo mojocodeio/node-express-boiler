@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/user');
 
@@ -12,11 +13,27 @@ const generateErrorMessageByCode = code => {
     }
 }
 
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization']
+    console.log('authHeader', authHeader)
+    const token = authHeader && authHeader.split(' ')[1]
+
+    if (!token) {
+        return res.send({ message: 'no token' })
+    } else {
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+            if (err) {
+                res.send({ message: 'no user access' })
+            } else {
+                req.user = user
+                next()
+            }
+        })
+    }
+}
+
 router.post('/register', (req, res) => {
-    const {
-        userName,
-        password,
-    } = req.body;
+    const { userName, password } = req.body;
     bcrypt.hash(password, 10, (err, hash) => {
         if (err) {
             console.log('err', err)
@@ -31,10 +48,7 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res, next) => {
-    const {
-        userName,
-        password,
-    } = req.body;
+    const { userName, password } = req.body;
 
     User.findOne({ userName }, (err, user) => {
         if (err) {
@@ -49,12 +63,17 @@ router.post('/login', (req, res, next) => {
             } else if (!result) {
                 res.send('Passwords did not match')
             } else {
-                console.log('user', user)
-                res.send(user)
+                /** passwords matched, serialize user w/jsonwebtoken */
+                const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET)
+                res.json({ accessToken })
             }
         });
     });
 });
+
+router.get('/dashboard', authenticateToken, (req, res) => {
+    console.log(req.user)
+})
 
 router.post('/logout', (req, res) => {
     res.send({
