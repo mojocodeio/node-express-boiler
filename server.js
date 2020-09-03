@@ -3,7 +3,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
-// const session = require('express-session');
+
+/** controllers */
+const apiRoutes = require('./controllers/api/api')
+const auth = require('./controllers/auth');
+
+const { authenticateToken } = require('./middleware/authenticateToken');
 const app = express();
 
 /** DATABASE CONFIG */
@@ -22,33 +27,17 @@ mongoose.connection
     console.warn('Warning Server', error)
   });
 
-/** controllers */
-const auth = require('./controllers/auth');
-const weather = require('./controllers/weather');
-
 /** middleware */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.resolve(__dirname, './client/build')));
 
-/** Express session still needs to be set up */
-// app.use(session({
-//   secret: process.env.SESSION_SECRET || 'secret',
-//   name: 'sid',
-//   saveUninitialized: false,
-//   resave: false,
-//   cookie: {
-//     maxAge: 1000*60*60*2,
-//     sameSite: true,
-//   }
-// }));
-
 /** routes */
+app.use('/api', authenticateToken, apiRoutes);
 app.use('/auth', auth);
-app.use('/weather', weather);
 
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
 });
 
 module.exports = app;

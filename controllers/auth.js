@@ -4,34 +4,6 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/user');
 
-const generateErrorMessageByCode = code => {
-    switch(code) {
-        case 11000:
-            return 'Sorry, That username is already taken.'
-        default:
-            return ''
-    }
-}
-
-const authenticateToken = (req, res, next) => {
-    const authHeader = req.headers['authorization']
-    console.log('authHeader', authHeader)
-    const token = authHeader && authHeader.split(' ')[1]
-
-    if (!token) {
-        return res.send({ message: 'no token' })
-    } else {
-        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-            if (err) {
-                res.send({ message: 'no user access' })
-            } else {
-                req.user = user
-                next()
-            }
-        })
-    }
-}
-
 router.post('/register', (req, res) => {
     const { userName, password } = req.body;
     bcrypt.hash(password, 10, (err, hash) => {
@@ -70,10 +42,6 @@ router.post('/login', (req, res, next) => {
         });
     });
 });
-
-router.get('/dashboard', authenticateToken, (req, res) => {
-    console.log(req.user)
-})
 
 router.post('/logout', (req, res) => {
     res.send({
