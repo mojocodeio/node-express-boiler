@@ -7,6 +7,7 @@ import Home from './Home/Home';
 import Auth from './Auth/Auth';
 import AuthRoute from './Auth/AuthRoute/AuthRoute';
 import Dashboard from './Dashboard/Dashboard';
+import User from './Auth/User/User';
 
 /** styles */
 import styles from './App.module.css';
@@ -14,6 +15,7 @@ import styles from './App.module.css';
 export const App = () => {
   return (
     <div className={styles.app}>
+      <User />
       <Navbar />
       <Switch>
         <Route exact path={'/'} component={Home} />

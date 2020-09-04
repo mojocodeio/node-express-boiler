@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 /** components */
@@ -10,25 +10,22 @@ import { connect } from 'react-redux';
 
 /** selectors */
 
-export const Dashboard = () => {
+export const User = () => {
+
     useEffect(() => {
         const token = window.localStorage.getItem('access-token')
-        fetch('http://localhost:3000/api/workouts', {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + token
-            }
-        })
+        console.log('token: ', token)
     }, [])
+
     return (
         <div className={'style-me'}>
-            Hello Dashboard
+            Hello User
         </div>
     );
 };
 
-// Dashboard.propTypes = {
-// }
+User.propTypes = {
+}
 
 //const mapStateToProps = state => ({
 //});
@@ -36,4 +33,4 @@ export const Dashboard = () => {
 //const mapDispatchToProps = {
 //};
 
-export default connect()(Dashboard);
+export default connect()(User);
