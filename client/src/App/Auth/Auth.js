@@ -30,7 +30,14 @@ export const Auth = ({
                 value={password}
                 onChange={e => setPassword(e.target.value)}
             />
-            <button onClick={() => handleUserLogin(userName, password, loginUrl)}>Submit</button>
+            <button
+                className={'auth-button'}
+                onClick={() => {
+                    handleUserLogin(userName, password, loginUrl)
+                    setUserName('')
+                    setPassword('')
+                }
+            }>Submit</button>
         </form>
     );
 };

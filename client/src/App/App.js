@@ -5,6 +5,8 @@ import { Route, Switch } from 'react-router-dom';
 import Navbar from './Navbar/Navbar';
 import Home from './Home/Home';
 import Auth from './Auth/Auth';
+import AuthRoute from './Auth/AuthRoute/AuthRoute';
+import Dashboard from './Dashboard/Dashboard';
 
 /** styles */
 import styles from './App.module.css';
@@ -16,6 +18,7 @@ export const App = () => {
       <Switch>
         <Route exact path={'/'} component={Home} />
         <Route path={'/login'} component={Auth} />
+        <AuthRoute path={'/dashboard'} component={Dashboard} />
       </Switch>
     </div>
   );
