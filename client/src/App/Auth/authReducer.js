@@ -4,6 +4,7 @@ import deep from 'deep-get-set';
 import {
     USER_LOGIN_SUCCESS,
     USER_LOGIN_FAILURE,
+    USER_LOGIN_LOADING,
     USER_FETCH_SUCCESS,
     USER_FETCH_FAILURE,
     USER_FETCH_LOADING,
@@ -30,15 +31,22 @@ export const authReducer = (state = {}, action) => {
                 userId: '',
                 userName: '',
             }
+        case USER_LOGIN_LOADING:
+            return {
+                ...state,
+                isLoadingUser: true,
+            }
         case USER_LOGIN_SUCCESS:
             return {
                 ...state,
+                isLoadingUser: false,
                 userId: action.userId,
                 userName: action.userName,
             };
         case USER_LOGIN_FAILURE:
             return {
                 ...state,
+                isLoadingUser: false,
                 error: action.error
             };
         default:

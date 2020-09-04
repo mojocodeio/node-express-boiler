@@ -1,5 +1,6 @@
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
+export const USER_LOGIN_LOADING = 'USER_LOGIN_LOADING';
 export const USER_FETCH_SUCCESS = 'USER_FETCH_SUCCESS';
 export const USER_FETCH_FAILURE = 'USER_FETCH_FAILURE';
 export const USER_FETCH_LOADING = 'USER_FETCH_LOADING';
@@ -7,6 +8,9 @@ export const USER_FETCH_LOADING = 'USER_FETCH_LOADING';
 export const handleUserLogin = (userName, password, loginUrl) => dispatch => {
     const body = JSON.stringify({ userName, password });
 
+    dispatch({
+        type: USER_LOGIN_LOADING,
+    })
     fetch(loginUrl, {
         method: 'POST',
         body,

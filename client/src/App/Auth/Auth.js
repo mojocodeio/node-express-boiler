@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 /** styles */
 import styles from './Auth.module.css';
@@ -9,14 +10,21 @@ import styles from './Auth.module.css';
 import { handleUserLogin } from './actions';
 
 /** selectors */
+import { getUserId } from './authReducer'
 import { getFullLoginUrl } from '../Config/configReducer';
 
 export const Auth = ({
     handleUserLogin,
     loginUrl,
+    userId,
 }) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    if (userId) {
+        return (
+            <Redirect to={{ path: '/dashboard' }}/>
+        )
+    }
     return (
         <form
             className={styles.auth}
@@ -45,6 +53,7 @@ export const Auth = ({
 Auth.propTypes = {
     handleUserLogin: PropTypes.func,
     loginUrl: PropTypes.string,
+    userId: PropTypes.string,
 };
 
 const mapDispatchToProps = {
@@ -53,6 +62,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = state => ({
     loginUrl: getFullLoginUrl(state),
+    userId: getUserId(state)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);
