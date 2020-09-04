@@ -11,10 +11,14 @@ import { connect } from 'react-redux';
 /** selectors */
 
 export const User = () => {
-
     useEffect(() => {
         const token = window.localStorage.getItem('access-token')
-        console.log('token: ', token)
+        fetch('http://localhost:3000/api/workouts', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
     }, [])
 
     return (

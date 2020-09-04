@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
@@ -8,15 +8,25 @@ import { Route, Redirect } from 'react-router-dom';
 /** styles */
 
 /** actions */
+import { handleFetchUser } from '../actions';
 
 /** selectors */
+import { getUserId } from '../authReducer';
 
-export const AuthRoute = ({ component: Component, ...rest }) => {
+export const AuthRoute = ({
+    handleFetchUser,
+    userId,
+    component: Component,
+    ...rest
+}) => {
+    useEffect(() => {
+        handleFetchUser()
+    }, [])
     return (
         <Route
             {...rest}
             render={props => {
-                if (localStorage.getItem('access-token')) {
+                if (userId) {
                     return (
                         <Component {...props} />
                     )
@@ -33,10 +43,12 @@ export const AuthRoute = ({ component: Component, ...rest }) => {
 // AuthRoute.propTypes = {
 // }
 
-//const mapStateToProps = state => ({
-//});
+const mapStateToProps = state => ({
+    userId: getUserId(state),
+});
 
-//const mapDispatchToProps = {
-//};
+const mapDispatchToProps = {
+    handleFetchUser,
+};
 
-export default connect()(AuthRoute);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthRoute);

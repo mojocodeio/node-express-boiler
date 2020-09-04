@@ -1,5 +1,7 @@
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
+export const USER_FETCH_SUCCESS = 'USER_FETCH_SUCCESS';
+export const USER_FETCH_FAILURE = 'USER_FETCH_FAILURE';
 
 export const handleUserLogin = (userName, password, loginUrl) => dispatch => {
     const body = JSON.stringify({ userName, password });
@@ -14,8 +16,8 @@ export const handleUserLogin = (userName, password, loginUrl) => dispatch => {
     })
         .then(res => res.json())
         .then(data => {
-            window.localStorage.setItem('access-token', data.accessToken)
             if (data.accessToken) {
+                window.localStorage.setItem('access-token', data.accessToken)
                 return dispatch({
                     type: USER_LOGIN_SUCCESS,
                     userId: data.user._id,
@@ -29,3 +31,33 @@ export const handleUserLogin = (userName, password, loginUrl) => dispatch => {
             error
         }))
 };
+
+export const handleFetchUser = () => dispatch => {
+    const token = window.localStorage.getItem('access-token');
+    if (!token) {
+        return dispatch({
+            type: USER_FETCH_FAILURE,
+            message: 'fail'
+        })
+    } else {
+        fetch('http://localhost:3000/api/user', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
+        .then(res => res.json())
+        .then(({ userId, userName }) => {
+            return dispatch({
+                type: USER_FETCH_SUCCESS,
+                userId,
+                userName
+            })
+        })
+        .catch(error => dispatch({
+            type: USER_FETCH_FAILURE,
+            error
+        }))
+    }
+
+}

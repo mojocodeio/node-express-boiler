@@ -11,15 +11,7 @@ import { connect } from 'react-redux';
 /** selectors */
 
 export const Dashboard = () => {
-    useEffect(() => {
-        const token = window.localStorage.getItem('access-token')
-        fetch('http://localhost:3000/api/workouts', {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + token
-            }
-        })
-    }, [])
+
     return (
         <div className={'style-me'}>
             Hello Dashboard

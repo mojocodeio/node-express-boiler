@@ -4,10 +4,24 @@ import deep from 'deep-get-set';
 import {
     USER_LOGIN_SUCCESS,
     USER_LOGIN_FAILURE,
+    USER_FETCH_SUCCESS,
+    USER_FETCH_FAILURE,
 } from './actions';
 
 export const authReducer = (state = {}, action) => {
     switch (action.type) {
+        case USER_FETCH_SUCCESS:
+            return {
+                ...state,
+                userId: action.userId,
+                userName: action.userName,
+            }
+        case USER_FETCH_FAILURE:
+            return {
+                ...state,
+                userId: '',
+                userName: '',
+            }
         case USER_LOGIN_SUCCESS:
             return {
                 ...state,
