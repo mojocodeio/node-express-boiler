@@ -16,6 +16,7 @@ export const Auth = ({
     loginUrl,
 }) => {
     const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
     return (
         <form
             className={styles.auth}
@@ -25,7 +26,11 @@ export const Auth = ({
                 value={userName}
                 onChange={e => setUserName(e.target.value)}
             />
-            <button onClick={() => handleUserLogin(userName, loginUrl)}>Submit</button>
+            <input
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+            />
+            <button onClick={() => handleUserLogin(userName, password, loginUrl)}>Submit</button>
         </form>
     );
 };

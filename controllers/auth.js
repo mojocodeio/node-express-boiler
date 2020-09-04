@@ -37,7 +37,7 @@ router.post('/login', (req, res, next) => {
             } else {
                 /** passwords matched, serialize user w/jsonwebtoken */
                 const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET)
-                res.json({ accessToken })
+                res.json({ accessToken, user })
             }
         });
     });
