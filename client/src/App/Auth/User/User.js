@@ -7,10 +7,16 @@ import { handleFetchUser } from '../actions';
 
 /** selectors */
 import { getIsLoadingUser } from '../authReducer';
+import { getFullUserUrl } from '../../Config/configReducer';
 
-export const User = ({ children, handleFetchUser, isLoadingUser }) => {
+export const User = ({
+    children,
+    handleFetchUser,
+    isLoadingUser,
+    userUrl,
+}) => {
     useEffect(() => {
-        handleFetchUser()
+        handleFetchUser(userUrl)
     }, [])
 
     if (isLoadingUser) {
@@ -31,10 +37,12 @@ User.defaultProps = {
 User.propTypes = {
     handleFetchUser: PropTypes.func,
     isLoadingUser: PropTypes.bool,
+    userUrl: PropTypes.string,
 }
 
 const mapStateToProps = state => ({
     isLoadingUser: getIsLoadingUser(state),
+    userUrl: getFullUserUrl(state),
 });
 
 const mapDispatchToProps = {

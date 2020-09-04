@@ -37,7 +37,7 @@ export const handleUserLogin = (userName, password, loginUrl) => dispatch => {
         }))
 };
 
-export const handleFetchUser = () => dispatch => {
+export const handleFetchUser = userUrl => dispatch => {
     const token = window.localStorage.getItem('access-token');
     if (!token) {
         return dispatch({
@@ -48,7 +48,7 @@ export const handleFetchUser = () => dispatch => {
         dispatch({
             type: USER_FETCH_LOADING,
         })
-        fetch('http://localhost:3000/api/user', {
+        fetch(userUrl, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token

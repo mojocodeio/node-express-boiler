@@ -29,6 +29,16 @@ export const getBaseUrl = state => {
     return deep(config, 'baseUrl');
 }
 
+export const getGatewayUrl = state => {
+    const config = getConfigReducer(state);
+    return deep(config, 'gatewayUrl');
+}
+
+export const getUserApi = state => {
+    const config = getConfigReducer(state);
+    return deep(config, 'userApi');
+}
+
 export const getAuthApi = state => {
     const config = getConfigReducer(state);
     return deep(config, 'authApi');
@@ -44,6 +54,12 @@ export const getFullLoginUrl = state => {
     const authApi = getAuthApi(state);
     const loginApi = getLoginApi(state);
     return `${baseUrl}${authApi}${loginApi}`
+}
+
+export const getFullUserUrl = state => {
+    const gatewayUrl = getGatewayUrl(state);
+    const userApi = getUserApi(state);
+    return `${gatewayUrl}${userApi}`
 }
 
 
