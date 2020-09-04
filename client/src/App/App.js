@@ -13,16 +13,18 @@ import User from './Auth/User/User';
 import styles from './App.module.css';
 
 export const App = () => {
-  return (
-    <div className={styles.app}>
-    	<Navbar />
-      		<Switch>
-				<Route exact path={'/'} component={Home} />
-				<Route path={'/login'} component={Auth} />
-				<AuthRoute path={'/dashboard'} component={Dashboard} />
-			</Switch>
-    </div>
-  );
+	return (
+		<div className={styles.app}>
+			<User>
+				<Navbar />
+				<Switch>
+					<Route exact path={'/'} component={Home} />
+					<Route path={'/login'} component={Auth} />
+					<AuthRoute path={'/dashboard'} component={Dashboard} />
+				</Switch>
+			</User>
+		</div>
+	);
 }
 
 export default App;

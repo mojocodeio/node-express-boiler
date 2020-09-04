@@ -6,19 +6,27 @@ import {
     USER_LOGIN_FAILURE,
     USER_FETCH_SUCCESS,
     USER_FETCH_FAILURE,
+    USER_FETCH_LOADING,
 } from './actions';
 
 export const authReducer = (state = {}, action) => {
     switch (action.type) {
+        case USER_FETCH_LOADING:
+            return {
+                ...state,
+                isLoadingUser: true,
+            }
         case USER_FETCH_SUCCESS:
             return {
                 ...state,
+                isLoadingUser: false,
                 userId: action.userId,
                 userName: action.userName,
             }
         case USER_FETCH_FAILURE:
             return {
                 ...state,
+                isLoadingUser: false,
                 userId: '',
                 userName: '',
             }
@@ -51,4 +59,9 @@ export const getUserId = state => {
 export const getUserName = state => {
     const auth = getAuthReducer(state);
     return deep(auth, 'userName');
+};
+
+export const getIsLoadingUser = state => {
+    const auth = getAuthReducer(state);
+    return deep(auth, 'isLoadingUser');
 };

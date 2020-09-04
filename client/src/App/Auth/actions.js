@@ -2,6 +2,7 @@ export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
 export const USER_FETCH_SUCCESS = 'USER_FETCH_SUCCESS';
 export const USER_FETCH_FAILURE = 'USER_FETCH_FAILURE';
+export const USER_FETCH_LOADING = 'USER_FETCH_LOADING';
 
 export const handleUserLogin = (userName, password, loginUrl) => dispatch => {
     const body = JSON.stringify({ userName, password });
@@ -40,6 +41,9 @@ export const handleFetchUser = () => dispatch => {
             message: 'fail'
         })
     } else {
+        dispatch({
+            type: USER_FETCH_LOADING,
+        })
         fetch('http://localhost:3000/api/user', {
             method: 'GET',
             headers: {

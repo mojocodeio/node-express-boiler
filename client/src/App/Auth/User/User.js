@@ -1,40 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-/** components */
-
-/** styles */
-
 /** actions */
+import { handleFetchUser } from '../actions';
 
 /** selectors */
+import { getIsLoadingUser } from '../authReducer';
 
-export const User = () => {
+export const User = ({ children, handleFetchUser, isLoadingUser }) => {
     useEffect(() => {
-        const token = window.localStorage.getItem('access-token')
-        fetch('http://localhost:3000/api/workouts', {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + token
-            }
-        })
+        handleFetchUser()
     }, [])
 
+    if (isLoadingUser) {
+        return null;
+    }
+
     return (
-        <div className={'style-me'}>
-            Hello User
-        </div>
+        <Fragment>
+            { children }
+        </Fragment>
     );
 };
 
+User.defaultProps = {
+    isLoadingUser: true,
+};
+
 User.propTypes = {
+    handleFetchUser: PropTypes.func,
+    isLoadingUser: PropTypes.bool,
 }
 
-//const mapStateToProps = state => ({
-//});
+const mapStateToProps = state => ({
+    isLoadingUser: getIsLoadingUser(state),
+});
 
-//const mapDispatchToProps = {
-//};
+const mapDispatchToProps = {
+    handleFetchUser,
+};
 
-export default connect()(User);
+export default connect(mapStateToProps, mapDispatchToProps)(User);

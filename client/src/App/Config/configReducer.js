@@ -2,10 +2,12 @@ import deep from 'deep-get-set';
 
 const initialConfig = {
     baseUrl: 'http://localhost:3000',
+    gatewayUrl: 'http://localhost:3000/api',
     authApi: '/auth',
     loginApi: '/login',
     logoutApi: '/logout',
     dashboardApi: '/dashboard',
+    userApi: '/user',
 };
 
 export const configReducer = (state = initialConfig, action) => {
