@@ -82,3 +82,7 @@ export const getIsLoadingUser = state => {
     const auth = getAuthReducer(state);
     return deep(auth, 'isLoadingUser');
 };
+export const getUserCreatedAtDate = state => {
+    const auth = getAuthReducer(state);
+    return deep(auth, 'createdAt');
+};
