@@ -12,9 +12,12 @@ router.post('/register', (req, res) => {
             res.send('Error hashing password with bcrypt')
         }
 
-        let user = new User({ userName, password: hash })
-        user.save()
-            .then(data => res.send(data))
+        let newUser = new User({ userName, password: hash })
+        newUser.save()
+            .then(user => {
+                const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET)
+                res.json({ accessToken, user })
+            })
             .catch(err => res.send(err))
     });
 });

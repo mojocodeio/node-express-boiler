@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { handleFetchUser } from '../actions';
 
 /** selectors */
-import { getIsLoadingUser } from '../authReducer';
+import { getIsLoadingUser, getUserId } from '../authReducer';
 import { getFullUserUrl } from '../../Config/configReducer';
 
 export const User = ({
@@ -14,10 +14,13 @@ export const User = ({
     handleFetchUser,
     isLoadingUser,
     userUrl,
+    userId,
 }) => {
     useEffect(() => {
-        handleFetchUser(userUrl)
-    }, [])
+        if (!userId) {
+            handleFetchUser(userUrl)
+        }
+    }, [userId])
 
     if (isLoadingUser) {
         return null;
@@ -37,11 +40,13 @@ User.defaultProps = {
 User.propTypes = {
     handleFetchUser: PropTypes.func,
     isLoadingUser: PropTypes.bool,
+    userId: PropTypes.string,
     userUrl: PropTypes.string,
 }
 
 const mapStateToProps = state => ({
     isLoadingUser: getIsLoadingUser(state),
+    userId: getUserId(state),
     userUrl: getFullUserUrl(state),
 });
 

@@ -5,6 +5,7 @@ const initialConfig = {
     gatewayUrl: 'http://localhost:3000/api',
     authApi: '/auth',
     loginApi: '/login',
+    registerApi: '/register',
     logoutApi: '/logout',
     dashboardApi: '/dashboard',
     userApi: '/user',
@@ -44,6 +45,11 @@ export const getAuthApi = state => {
     return deep(config, 'authApi');
 }
 
+export const getRegisterApi = state => {
+    const config = getConfigReducer(state);
+    return deep(config, 'registerApi');
+}
+
 export const getLoginApi = state => {
     const config = getConfigReducer(state);
     return deep(config, 'loginApi');
@@ -56,10 +62,18 @@ export const getFullLoginUrl = state => {
     return `${baseUrl}${authApi}${loginApi}`
 }
 
+export const getFullRegisterUrl = state => {
+    const baseUrl = getBaseUrl(state);
+    const authApi = getAuthApi(state);
+    const registerApi = getRegisterApi(state);
+    return `${baseUrl}${authApi}${registerApi}`
+}
+
 export const getFullUserUrl = state => {
     const gatewayUrl = getGatewayUrl(state);
     const userApi = getUserApi(state);
     return `${gatewayUrl}${userApi}`
 }
+
 
 

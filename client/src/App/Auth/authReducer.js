@@ -42,7 +42,7 @@ export const authReducer = (state = {}, action) => {
             return {
                 ...state,
                 isLoadingUser: false,
-                userId: action.userId,
+                userId: action._id,
                 userName: action.userName,
                 createdAt: action.createdAt,
             };

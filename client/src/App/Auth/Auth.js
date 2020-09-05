@@ -11,20 +11,25 @@ import { handleUserLogin } from './actions';
 
 /** selectors */
 import { getUserId } from './authReducer'
-import { getFullLoginUrl } from '../Config/configReducer';
+import { getFullLoginUrl, getFullRegisterUrl } from '../Config/configReducer';
 
 export const Auth = ({
     handleUserLogin,
     loginUrl,
+    registerUrl,
     userId,
 }) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [alreadyMember, setAlreadyMember] = useState(false);
+    const url = alreadyMember ? loginUrl : registerUrl;
+
     if (userId) {
         return (
             <Redirect to={{ path: '/dashboard' }}/>
         )
     }
+
     return (
         <form
             className={styles.auth}
@@ -38,10 +43,16 @@ export const Auth = ({
                 value={password}
                 onChange={e => setPassword(e.target.value)}
             />
+            <input
+                type="checkbox"
+                checked={alreadyMember}
+                onChange={() => setAlreadyMember(!alreadyMember)}
+            />
+            <label>Already a member?</label>
             <button
-                className={'auth-button'}
+                className={styles['auth-button']}
                 onClick={() => {
-                    handleUserLogin(userName, password, loginUrl)
+                    handleUserLogin(userName, password, url)
                     setUserName('')
                     setPassword('')
                 }
@@ -53,6 +64,7 @@ export const Auth = ({
 Auth.propTypes = {
     handleUserLogin: PropTypes.func,
     loginUrl: PropTypes.string,
+    registerUrl: PropTypes.string,
     userId: PropTypes.string,
 };
 
@@ -62,6 +74,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = state => ({
     loginUrl: getFullLoginUrl(state),
+    registerUrl: getFullRegisterUrl(state),
     userId: getUserId(state)
 })
 

@@ -22,13 +22,12 @@ export const handleUserLogin = (userName, password, loginUrl) => dispatch => {
     })
         .then(res => res.json())
         .then(data => {
-            if (data.accessToken) {
+            const { accessToken, user } = data;
+            if (accessToken) {
                 window.localStorage.setItem('access-token', data.accessToken)
                 return dispatch({
                     type: USER_LOGIN_SUCCESS,
-                    userId: data.user._id,
-                    userName: data.user.userName,
-                    createdAt: data.user.createdAt,
+                    ...user,
                 })
             }
 
@@ -49,7 +48,7 @@ export const handleFetchUser = userUrl => dispatch => {
     } else {
         dispatch({
             type: USER_FETCH_LOADING,
-        })
+        });
         fetch(userUrl, {
             method: 'GET',
             headers: {
@@ -60,7 +59,7 @@ export const handleFetchUser = userUrl => dispatch => {
         .then((user) => {
             return dispatch({
                 type: USER_FETCH_SUCCESS,
-                ...user
+                ...user,
             })
         })
         .catch(error => dispatch({
