@@ -20,7 +20,12 @@ export const handleUserLogin = (userName, password, loginUrl) => dispatch => {
             'Content-Type': 'application/json'
         },
     })
-        .then(res => res.json())
+        .then(res => {
+            if (res.status !== 200) {
+                throw new Error(res.status)
+            }
+            return res.json()
+        })
         .then(data => {
             const { accessToken, user } = data;
             if (accessToken) {
@@ -32,10 +37,12 @@ export const handleUserLogin = (userName, password, loginUrl) => dispatch => {
             }
 
         })
-        .catch(error => dispatch({
-            type: USER_LOGIN_FAILURE,
-            error
-        }))
+        .catch(error => {
+            return dispatch({
+                type: USER_LOGIN_FAILURE,
+                message: 'Error logging user in'
+            })
+        })
 };
 
 export const handleFetchUser = userUrl => dispatch => {
@@ -43,7 +50,7 @@ export const handleFetchUser = userUrl => dispatch => {
     if (!token) {
         return dispatch({
             type: USER_FETCH_FAILURE,
-            message: 'fail'
+            message: 'Error fetching user, no credentials'
         })
     } else {
         dispatch({
@@ -55,7 +62,13 @@ export const handleFetchUser = userUrl => dispatch => {
                 'Authorization': 'Bearer ' + token
             }
         })
-        .then(res => res.json())
+        .then(res => {
+            if (res.status !== 200) {
+                throw new Error(res.status)
+            }
+
+            return res.json()
+        })
         .then((user) => {
             return dispatch({
                 type: USER_FETCH_SUCCESS,
@@ -64,7 +77,7 @@ export const handleFetchUser = userUrl => dispatch => {
         })
         .catch(error => dispatch({
             type: USER_FETCH_FAILURE,
-            error
+            message: 'Error fetching user, incorrect credentials'
         }))
     }
 }

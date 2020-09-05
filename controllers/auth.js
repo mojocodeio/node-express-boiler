@@ -18,7 +18,12 @@ router.post('/register', (req, res) => {
                 const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET)
                 res.json({ accessToken, user })
             })
-            .catch(err => res.send(err))
+            .catch(err => {
+                res.status(500).send({
+                    message: 'A user with that user name already exists.',
+                    err,
+                })
+            })
     });
 });
 
@@ -26,23 +31,24 @@ router.post('/login', (req, res, next) => {
     const { userName, password } = req.body;
 
     User.findOne({ userName }, (err, user) => {
-        if (err) {
-            console.log('err', err)
-            res.send('Could not find user by that userName')
+        if (!user) {
+            res.status(500).send({
+                message: 'Could not find user by that userName',
+                err,
+            })
+        } else {
+            bcrypt.compare(password, user.password, (err, result) => {
+                if (err) {
+                    res.send('Error checking passwords')
+                } else if (!result) {
+                    res.send('Passwords did not match')
+                } else {
+                    /** passwords matched, serialize user w/jsonwebtoken */
+                    const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET)
+                    res.json({ accessToken, user })
+                }
+            });
         }
-
-        bcrypt.compare(password, user.password, (err, result) => {
-            if (err) {
-                console.log('err', err)
-                res.send('Error checking passwords')
-            } else if (!result) {
-                res.send('Passwords did not match')
-            } else {
-                /** passwords matched, serialize user w/jsonwebtoken */
-                const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET)
-                res.json({ accessToken, user })
-            }
-        });
     });
 });
 
