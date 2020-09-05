@@ -28,6 +28,7 @@ export const handleUserLogin = (userName, password, loginUrl) => dispatch => {
                     type: USER_LOGIN_SUCCESS,
                     userId: data.user._id,
                     userName: data.user.userName,
+                    createdAt: data.user.createdAt,
                 })
             }
 
@@ -56,12 +57,10 @@ export const handleFetchUser = userUrl => dispatch => {
             }
         })
         .then(res => res.json())
-        .then(({ userId, userName, createdAt }) => {
+        .then((user) => {
             return dispatch({
                 type: USER_FETCH_SUCCESS,
-                userId,
-                userName,
-                createdAt,
+                ...user
             })
         })
         .catch(error => dispatch({

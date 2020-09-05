@@ -44,6 +44,7 @@ export const authReducer = (state = {}, action) => {
                 isLoadingUser: false,
                 userId: action.userId,
                 userName: action.userName,
+                createdAt: action.createdAt,
             };
         case USER_LOGIN_FAILURE:
             return {
