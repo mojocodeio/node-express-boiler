@@ -56,11 +56,12 @@ export const handleFetchUser = userUrl => dispatch => {
             }
         })
         .then(res => res.json())
-        .then(({ userId, userName }) => {
+        .then(({ userId, userName, createdAt }) => {
             return dispatch({
                 type: USER_FETCH_SUCCESS,
                 userId,
-                userName
+                userName,
+                createdAt,
             })
         })
         .catch(error => dispatch({

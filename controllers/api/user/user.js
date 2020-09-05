@@ -8,6 +8,7 @@ router.get('/user', (req, res) => {
     res.send({
         userName: user.userName,
         userId: user._id,
+        createdAt: user.createdAt,
     })
 })
 
