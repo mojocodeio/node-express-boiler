@@ -8,6 +8,7 @@ import {
     USER_FETCH_SUCCESS,
     USER_FETCH_FAILURE,
     USER_FETCH_LOADING,
+    USER_LOGOUT,
 } from './actions';
 
 export const authReducer = (state = {}, action) => {
@@ -48,6 +49,12 @@ export const authReducer = (state = {}, action) => {
                 ...state,
                 isLoadingUser: false,
                 error: action.error
+            };
+        case USER_LOGOUT:
+            return {
+                ...state,
+                userId: '',
+                userName: ''
             };
         default:
             return state;

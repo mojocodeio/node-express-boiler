@@ -4,6 +4,7 @@ export const USER_LOGIN_LOADING = 'USER_LOGIN_LOADING';
 export const USER_FETCH_SUCCESS = 'USER_FETCH_SUCCESS';
 export const USER_FETCH_FAILURE = 'USER_FETCH_FAILURE';
 export const USER_FETCH_LOADING = 'USER_FETCH_LOADING';
+export const USER_LOGOUT = 'USER_LOGOUT';
 
 export const handleUserLogin = (userName, password, loginUrl) => dispatch => {
     const body = JSON.stringify({ userName, password });
@@ -67,5 +68,11 @@ export const handleFetchUser = userUrl => dispatch => {
             error
         }))
     }
+}
 
+export const handleUserLogout = () => {
+    window.localStorage.removeItem('access-token');
+    return {
+        type: USER_LOGOUT,
+    }
 }

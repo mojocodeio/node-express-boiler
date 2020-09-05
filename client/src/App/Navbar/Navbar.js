@@ -8,6 +8,9 @@ import { NavLink } from 'react-router-dom';
 /** styles */
 import styles from './Navbar.module.css';
 
+/** actions */
+import { handleUserLogout } from '../Auth/actions';
+
 /** selectors */
 import { getUserId } from '../Auth/authReducer';
 
@@ -19,6 +22,7 @@ import {
 
 export const Navbar = ({
     userId,
+    handleUserLogout,
 }) => {
     if (userId) {
         return (
@@ -34,6 +38,9 @@ export const Navbar = ({
                         </NavLink>
                     );
                 })}
+                <button onClick={handleUserLogout}>
+                    Logout
+                </button>
             </nav>
         );
     };
@@ -56,11 +63,16 @@ export const Navbar = ({
 };
 
 Navbar.propTypes = {
-    userId: PropTypes.string
+    userId: PropTypes.string,
+    handleUserLogout: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
     userId: getUserId(state),
 });
 
-export default connect(mapStateToProps)(Navbar);
+const mapDispatchToProps = {
+    handleUserLogout,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

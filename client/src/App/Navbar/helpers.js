@@ -18,8 +18,4 @@ export const authenticatedLinks = [
         path: '/dashboard',
         name: 'Dashboard'
     },
-    {
-        path: '/logout',
-        name: 'Logout'
-    },
 ];
