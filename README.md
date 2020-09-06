@@ -20,3 +20,18 @@ NodeJS Resources
 - Named Exports vs Default Exports: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
 - User Auth Middleware: https://scotch.io/tutorials/route-middleware-to-check-if-a-user-is-authenticated-in-node-js
 - Using Express Middleware - https://expressjs.com/en/guide/using-middleware.html
+
+Common Errors
+- The 'Port 3000 is already in use [nodemon] app crashed' error...
+
+[Resource](https://stackoverflow.com/questions/58605392/port-3000-is-already-in-use-nodemon-app-crashed-waiting-for-file-changes-bef)
+
+```
+lsof -i :5000 -t
+
+-> 12345
+
+kill 12345
+```
+
+Details: console.log('test') will not crash nodemon, but console.log(db_results) or console.log(error) where db_results is an array of objects and error is a multi-line string will reliably crash nodemon.
