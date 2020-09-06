@@ -22,7 +22,7 @@ export const authReducer = (state = {}, action) => {
             return {
                 ...state,
                 isLoadingUser: false,
-                userId: action.userId,
+                userId: action._id,
                 userName: action.userName,
                 createdAt: action.createdAt,
             }
@@ -50,7 +50,7 @@ export const authReducer = (state = {}, action) => {
             return {
                 ...state,
                 isLoadingUser: false,
-                error: action.error
+                errorMessage: action.message
             };
         case USER_LOGOUT:
             return {

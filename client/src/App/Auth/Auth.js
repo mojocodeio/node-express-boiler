@@ -7,14 +7,14 @@ import { Redirect } from 'react-router-dom';
 import styles from './Auth.module.css';
 
 /** actions */
-import { handleUserLogin } from './actions';
+import { handleAuthenticateUser } from './actions';
 
 /** selectors */
 import { getUserId } from './authReducer'
 import { getFullLoginUrl, getFullRegisterUrl } from '../Config/configReducer';
 
 export const Auth = ({
-    handleUserLogin,
+    handleAuthenticateUser,
     loginUrl,
     registerUrl,
     userId,
@@ -52,7 +52,7 @@ export const Auth = ({
             <button
                 className={styles['auth-button']}
                 onClick={() => {
-                    handleUserLogin(userName, password, url)
+                    handleAuthenticateUser({ userName, password }, url)
                     setUserName('')
                     setPassword('')
                 }
@@ -62,14 +62,14 @@ export const Auth = ({
 };
 
 Auth.propTypes = {
-    handleUserLogin: PropTypes.func,
+    handleAuthenticateUser: PropTypes.func,
     loginUrl: PropTypes.string,
     registerUrl: PropTypes.string,
     userId: PropTypes.string,
 };
 
 const mapDispatchToProps = {
-    handleUserLogin,
+    handleAuthenticateUser,
 };
 
 const mapStateToProps = state => ({
