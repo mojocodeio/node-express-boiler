@@ -1,3 +1,5 @@
+import deep from 'deep-get-set';
+
 import { CLEAR_ERROR_MESSAGE } from './actions';
 import { USER_LOGIN_FAILURE } from '../Auth/actions';
 
@@ -23,3 +25,12 @@ export const errorReducer = (state = initialState, action) => {
 };
 
 export default errorReducer;
+
+export const getErrorReducer = state => {
+    return deep(state, 'error');
+}
+
+export const getErrorMessage = state => {
+    const error = getErrorReducer(state);
+    return deep(error, 'errorMessage');
+}

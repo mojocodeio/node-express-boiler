@@ -9,22 +9,31 @@ import { connect } from 'react-redux';
 /** actions */
 
 /** selectors */
+import { getErrorMessage } from './errorReducer'
 
-export const FlashError = () => {
+export const FlashError = ({
+    errorMessage
+}) => {
+    if (!errorMessage) {
+        return null;
+    }
+
     return (
         <div className={'style-me'}>
-            Hello FlashError
+            { errorMessage }
         </div>
     );
 };
 
 FlashError.propTypes = {
-}
+    errorMessage: PropTypes.string,
+};
 
-//const mapStateToProps = state => ({
-//});
+const mapStateToProps = state => ({
+    errorMessage: getErrorMessage(state),
+});
 
 //const mapDispatchToProps = {
 //};
 
-export default connect()(FlashError);
+export default connect(mapStateToProps)(FlashError);
