@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -7,13 +7,20 @@ import { connect } from 'react-redux';
 /** styles */
 
 /** actions */
+import { handleClearErrorMessage } from './actions';
 
 /** selectors */
-import { getErrorMessage } from './errorReducer'
+import { getErrorMessage } from './errorReducer';
+
+/** hooks */
+import { useFlashError } from './hooks';
 
 export const FlashError = ({
-    errorMessage
+    errorMessage,
+    handleClearErrorMessage,
 }) => {
+    useFlashError(errorMessage, handleClearErrorMessage)
+
     if (!errorMessage) {
         return null;
     }
@@ -27,13 +34,15 @@ export const FlashError = ({
 
 FlashError.propTypes = {
     errorMessage: PropTypes.string,
+    handleClearErrorMessage: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
     errorMessage: getErrorMessage(state),
 });
 
-//const mapDispatchToProps = {
-//};
+const mapDispatchToProps = {
+    handleClearErrorMessage
+};
 
-export default connect(mapStateToProps)(FlashError);
+export default connect(mapStateToProps, mapDispatchToProps)(FlashError);
