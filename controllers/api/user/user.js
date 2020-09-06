@@ -5,11 +5,7 @@ const router = express.Router();
 
 router.get('/user', (req, res) => {
     const { user } = req.user
-    res.send({
-        userName: user.userName,
-        userId: user._id,
-        createdAt: user.createdAt,
-    })
+    res.send({ user })
 })
 
 module.exports = router;
