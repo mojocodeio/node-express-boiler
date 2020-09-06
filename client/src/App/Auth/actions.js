@@ -8,15 +8,13 @@ export const USER_FETCH_FAILURE = 'USER_FETCH_FAILURE';
 export const USER_FETCH_LOADING = 'USER_FETCH_LOADING';
 export const USER_LOGOUT = 'USER_LOGOUT';
 
-export const handleAuthenticateUser = (userName, password, loginUrl) => dispatch => {
-    const user = { userName, password };
+export const handleAuthenticateUser = (user, loginUrl) => dispatch => {
 
     dispatch({
         type: USER_LOGIN_LOADING,
     })
 
     axios.post(loginUrl, { user }).then(({ data }) => {
-        console.log(data)
         const { accessToken, user } = data;
         if (accessToken) {
             window.localStorage.setItem('access-token', data.accessToken)

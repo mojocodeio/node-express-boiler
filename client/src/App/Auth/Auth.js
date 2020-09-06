@@ -53,7 +53,7 @@ export const Auth = ({
             <button
                 className={styles['auth-button']}
                 onClick={() => {
-                    handleAuthenticateUser(userName, password, url)
+                    handleAuthenticateUser({ userName, password }, url)
                     setUserName('')
                     setPassword('')
                 }
