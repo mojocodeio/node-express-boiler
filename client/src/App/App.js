@@ -8,6 +8,7 @@ import Auth from './Auth/Auth';
 import AuthRoute from './Auth/AuthRoute/AuthRoute';
 import Dashboard from './Dashboard/Dashboard';
 import User from './Auth/User/User';
+import FlashError from './FlashError/FlashError';
 
 /** styles */
 import styles from './App.module.css';
@@ -17,6 +18,7 @@ export const App = () => {
 		<div className={styles.app}>
 			<User>
 				<Navbar />
+				<FlashError />
 				<Switch>
 					<Route exact path={'/'} component={Home} />
 					<Route path={'/login'} component={Auth} />
