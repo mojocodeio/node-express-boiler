@@ -7,17 +7,13 @@ import { Redirect } from 'react-router-dom';
 import styles from './Auth.module.css';
 
 /** actions */
-import {
-    // handleUserLogin,
-    handleAuthenticateUser,
-} from './actions';
+import { handleAuthenticateUser } from './actions';
 
 /** selectors */
 import { getUserId } from './authReducer'
 import { getFullLoginUrl, getFullRegisterUrl } from '../Config/configReducer';
 
 export const Auth = ({
-    // handleUserLogin,
     handleAuthenticateUser,
     loginUrl,
     registerUrl,
@@ -66,7 +62,6 @@ export const Auth = ({
 };
 
 Auth.propTypes = {
-    // handleUserLogin: PropTypes.func,
     handleAuthenticateUser: PropTypes.func,
     loginUrl: PropTypes.string,
     registerUrl: PropTypes.string,
@@ -74,7 +69,6 @@ Auth.propTypes = {
 };
 
 const mapDispatchToProps = {
-    // handleUserLogin,
     handleAuthenticateUser,
 };
 
