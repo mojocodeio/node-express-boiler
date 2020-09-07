@@ -50,7 +50,6 @@ export const authReducer = (state = {}, action) => {
             return {
                 ...state,
                 isLoadingUser: false,
-                errorMessage: action.message
             };
         case USER_LOGOUT:
             return {

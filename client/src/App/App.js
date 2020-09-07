@@ -16,12 +16,19 @@ export const App = () => {
 	return (
 		<div className={styles.app}>
 			<User>
-				<Navbar />
-				<Switch>
-					<Route exact path={'/'} component={Home} />
-					<Route path={'/login'} component={Auth} />
-					<AuthRoute path={'/dashboard'} component={Dashboard} />
-				</Switch>
+				<div className={styles.header}>
+					<Navbar />
+				</div>
+				<div className={styles.content}>
+					<Switch>
+						<Route exact path={'/'} component={Home} />
+						<Route path={'/login'} component={Auth} />
+						<AuthRoute path={'/dashboard'} component={Dashboard} />
+					</Switch>
+				</div>
+				<div className={styles.footer}>
+					Footer
+				</div>
 			</User>
 		</div>
 	);
