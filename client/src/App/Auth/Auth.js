@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
+/** components */
+import FlashError from '../FlashError/FlashError';
+
 /** styles */
 import styles from './Auth.module.css';
 
@@ -37,6 +40,7 @@ export const Auth = ({
             onSubmit={e => e.preventDefault()}
         >
             <h3 className={styles.title}>{title}</h3>
+            <FlashError />
             <input
                 className={`${styles['input-section']} ${styles.username}`}
                 value={userName}

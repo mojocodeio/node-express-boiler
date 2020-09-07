@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 /** components */
 
 /** styles */
+import styles from './FlashError.module.css';
 
 /** actions */
 import { handleClearErrorMessage } from './actions';
@@ -26,7 +27,7 @@ export const FlashError = ({
     }
 
     return (
-        <div className={'style-me'}>
+        <div className={styles.error}>
             { errorMessage }
         </div>
     );
