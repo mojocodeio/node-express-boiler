@@ -1,6 +1,9 @@
 import deep from 'deep-get-set';
 
-import { CLEAR_ERROR_MESSAGE } from './actions';
+import {
+    CLEAR_ERROR_MESSAGE,
+    FLASH_ERROR_MESSAGE,
+} from './actions';
 import { USER_LOGIN_FAILURE } from '../Auth/actions';
 
 const initialState = {
@@ -18,6 +21,11 @@ export const errorReducer = (state = initialState, action) => {
             return {
                 ...state,
                 errorMessage: '',
+            }
+        case FLASH_ERROR_MESSAGE:
+            return {
+                ...state,
+                errorMessage: action.message,
             }
         default:
             return state
