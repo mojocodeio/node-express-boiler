@@ -21,9 +21,9 @@ export const App = () => {
 				</div>
 				<div className={styles.content}>
 					<Switch>
-						<Route exact path={'/'} component={Home} />
 						<Route path={'/login'} component={Auth} />
 						<AuthRoute path={'/dashboard'} component={Dashboard} />
+						<Route exact path={'/'} component={Home} />
 					</Switch>
 				</div>
 				<div className={styles.footer}>

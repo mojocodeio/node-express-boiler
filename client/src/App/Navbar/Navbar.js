@@ -33,12 +33,17 @@ export const Navbar = ({
                             to={navLink.path}
                             key={index}
                             className={styles.navLink}
+                            activeClassName={styles.active}
+                            exact
                         >
                             {navLink.name}
                         </NavLink>
                     );
                 })}
-                <button onClick={handleUserLogout}>
+                <button
+                    onClick={handleUserLogout}
+                    className={styles.logout}
+                >
                     Logout
                 </button>
             </nav>
@@ -53,6 +58,8 @@ export const Navbar = ({
                             to={navLink.path}
                             key={index}
                             className={styles.navLink}
+                            activeClassName={styles.active}
+                            exact
                         >
                             {navLink.name}
                         </NavLink>
