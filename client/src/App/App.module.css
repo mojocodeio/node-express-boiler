@@ -11,10 +11,6 @@
 
 }
 
-.header {
-
-}
-
 .content {
   flex-grow: 1;
   background-image: linear-gradient(#7c5295, #3c1361)

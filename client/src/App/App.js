@@ -8,6 +8,7 @@ import Auth from './Auth/Auth';
 import AuthRoute from './Auth/AuthRoute/AuthRoute';
 import Dashboard from './Dashboard/Dashboard';
 import User from './Auth/User/User';
+import Footer from './Layout/Footer/Footer';
 
 /** styles */
 import styles from './App.module.css';
@@ -21,14 +22,12 @@ export const App = () => {
 				</div>
 				<div className={styles.content}>
 					<Switch>
-						<Route exact path={'/'} component={Home} />
 						<Route path={'/login'} component={Auth} />
 						<AuthRoute path={'/dashboard'} component={Dashboard} />
+						<Route exact path={'/'} component={Home} />
 					</Switch>
 				</div>
-				<div className={styles.footer}>
-					Footer
-				</div>
+				<Footer />
 			</User>
 		</div>
 	);

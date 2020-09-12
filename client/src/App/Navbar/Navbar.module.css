@@ -1,9 +1,27 @@
 .nav {
-    padding: 8px;
-    border: 1px solid firebrick;
+    padding: 16px;
+    background-color: #3c1361;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .navLink {
     text-decoration: none;
     margin-right: 16px;
+    color: white;
+    font-weight: bold;
+}
+
+.active {
+    text-decoration: underline;
+    text-decoration-color: white;
+}
+
+.logout {
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    padding: 0;
+    border: none;
+    font-size: 16px;
 }

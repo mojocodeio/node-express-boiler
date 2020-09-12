@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 
 /** controllers */
-const apiRoutes = require('./controllers/api/api')
+const apiRoutes = require('./controllers/api/api');
 const auth = require('./controllers/auth');
 
 const { authenticateToken } = require('./middleware/authenticateToken');
@@ -37,7 +37,7 @@ app.use('/api', authenticateToken, apiRoutes);
 app.use('/auth', auth);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
 module.exports = app;

@@ -28,7 +28,11 @@ export const FlashError = ({
 
     return (
         <div className={styles.error}>
-            { errorMessage }
+            <div>{ errorMessage }</div>
+            <button
+                onClick={handleClearErrorMessage}
+                className={styles.button}
+            >x</button>
         </div>
     );
 };
