@@ -9,6 +9,13 @@ import { connect } from 'react-redux';
 /** actions */
 
 /** selectors */
+
+/**
+ * check todays date
+ * attempt to save date into db in the user's workouts
+ * if date already exists in there, Looks like you already workout text & redirect to reports page
+ * if not, save the date in the db, didWorkout true, say nice job, redirect to reports page
+ */
 import { getUserCreatedAtDate, getUserName } from '../Auth/authReducer'
 
 export const Dashboard = ({
