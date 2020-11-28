@@ -34,4 +34,19 @@ router.post('/workouts', (req, res) => {
     })
 })
 
+router.delete('/workouts/:id', (req, res) => {
+    const { id } = req.params
+    Workout.deleteOne({ _id: id }, (err) => {
+        if (err) {
+            res.status(500).send({
+                message: 'Sorry having trouble deleting that',
+                err
+            })
+        }
+
+        res.json({ message: 'Workout deleted' })
+    })
+
+})
+
 module.exports = router;
