@@ -15,7 +15,7 @@ const app = express();
 const mongoAtlasUri = process.env.MONGODB_URL || 'mongodb://localhost/weather_data';
 const configOptions = {
     useNewUrlParser: true,
-    dbName: 'sample_weatherdata',
+    dbName: 'auth-next',
     useCreateIndex: true,
     useUnifiedTopology: true,
 };

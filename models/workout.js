@@ -4,8 +4,8 @@ const workoutSchema = new mongoose.Schema({
     description: { type: String },
     timestamp: { type: Date },
     name: { type: String },
-    user_id: { type: String, required: true }
-}, { collection: 'data' });
+    user_id: { type: mongoose.ObjectId, required: true }
+}, { collection: 'workouts' });
 
 const Workout = mongoose.model('Workout', workoutSchema, 'workouts');
 
