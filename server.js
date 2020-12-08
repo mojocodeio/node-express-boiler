@@ -18,6 +18,7 @@ const configOptions = {
     dbName: 'auth-next',
     useCreateIndex: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
 };
 
 mongoose.connect(mongoAtlasUri, configOptions);

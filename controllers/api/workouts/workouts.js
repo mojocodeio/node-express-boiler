@@ -5,11 +5,12 @@ const Workout = require('../../../models/workout')
 
 router.get('/workouts', (req, res) => {
     const { user } = req.user
-    console.log('user', user)
+
     Workout.find({ user_id: user._id }, (err, data) => {
         if (err) {
             res.send({ message: 'ERROR WILL ROBINSON', err })
         } else {
+            console.log('data', data)
             res.send({ data })
         }
     })
@@ -23,7 +24,6 @@ router.post('/workouts', (req, res) => {
 
     newWorkout.save()
     .then(workout => {
-        console.log('workout', workout)
         res.json({ workout })
     })
     .catch(err => {
@@ -31,6 +31,22 @@ router.post('/workouts', (req, res) => {
             message: 'Sorry having trouble saving workouts',
             err
         })
+    })
+})
+
+router.put('/workouts/:id', (req, res) => {
+    console.log('req.user', req.user);
+    const { id } = req.params
+    const { difficulty } = req.body
+    Workout.findByIdAndUpdate(id, { difficulty }, { new: true }, (err, workout) => {
+        if (err) {
+            res.status(500).send({
+                message: 'Sorry having trouble updating that',
+                err
+            })
+        }
+
+        res.json({ workout })
     })
 })
 
