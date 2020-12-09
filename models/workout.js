@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 
 const workoutSchema = new mongoose.Schema({
     description: { type: String },
-    timestamp: { type: Date },
+    timestamp: { type: Date, default: Date.now() },
     name: { type: String },
-    user_id: { type: String, required: true }
-}, { collection: 'data' });
+    difficulty: { type: Number, default: 5, min: 0, max: 10 },
+    user_id: { type: mongoose.ObjectId, required: true }
+}, { collection: 'workouts' });
 
 const Workout = mongoose.model('Workout', workoutSchema, 'workouts');
 
