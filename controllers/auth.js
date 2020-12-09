@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/user');
 
+/** POST add new user */
 router.post('/register', (req, res) => {
     const { userName, password } = req.body.user;
     bcrypt.hash(password, 10, (err, hash) => {
@@ -26,6 +27,7 @@ router.post('/register', (req, res) => {
     });
 });
 
+/** POST authenticate userName & password */
 router.post('/login', (req, res) => {
     const { userName, password } = req.body.user;
 
