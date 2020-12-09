@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Workout = require('../../../models/workout')
 
+/** GET all workouts */
 router.get('/workouts', (req, res) => {
     const { user } = req.user
 
@@ -16,6 +17,23 @@ router.get('/workouts', (req, res) => {
     })
 })
 
+/** GET workout by id */
+router.get('/workouts/:id', (req, res) => {
+    console.log('req.user', req.user);
+    const { id } = req.params
+    Workout.findById(id, (err, workout) => {
+        if (err) {
+            res.status(500).send({
+                message: 'Sorry having trouble finding that workout',
+                err
+            })
+        }
+
+        res.json({ workout })
+    })
+})
+
+/** POST new workout */
 router.post('/workouts', (req, res) => {
     const { user } = req.user
     let newWorkout = new Workout({
@@ -34,6 +52,7 @@ router.post('/workouts', (req, res) => {
     })
 })
 
+/** PUT update workout by id */
 router.put('/workouts/:id', (req, res) => {
     console.log('req.user', req.user);
     const { id } = req.params
@@ -50,6 +69,7 @@ router.put('/workouts/:id', (req, res) => {
     })
 })
 
+/** DELETE workout by id */
 router.delete('/workouts/:id', (req, res) => {
     const { id } = req.params
     Workout.deleteOne({ _id: id }, (err) => {
