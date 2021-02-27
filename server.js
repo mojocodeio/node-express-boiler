@@ -7,6 +7,7 @@ const path = require('path');
 /** controllers */
 const apiRoutes = require('./controllers/api/api');
 const auth = require('./controllers/auth');
+const lockers = require('./controllers/lockers');
 
 const { authenticateToken } = require('./middleware/authenticateToken');
 const app = express();
@@ -36,6 +37,7 @@ app.use(express.static(path.resolve(__dirname, './client/build')));
 /** routes */
 app.use('/api', authenticateToken, apiRoutes);
 app.use('/auth', auth);
+app.use('/lockers', lockers)
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
