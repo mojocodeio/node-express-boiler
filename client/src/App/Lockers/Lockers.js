@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 /** actions */
 import { fetchLockers } from './actions'
 
-function Lockers() {
+function Lockers({
+    fetchLockers,
+}) {
     useEffect(() => {
         fetchLockers()
     }, [])
@@ -23,7 +25,7 @@ function Lockers() {
 // }
 
 const mapDispatchToProps = {
-
+    fetchLockers,
 }
 
-export default connect()(Lockers)
+export default connect(null, mapDispatchToProps)(Lockers)

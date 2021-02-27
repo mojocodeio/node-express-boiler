@@ -20,6 +20,7 @@ export const lockerReducer = (state = initialState, action) => {
                 lockersFetchLoading: false,
                 lockersFetchSuccess: true,
                 lockersFetchFailure: false,
+                lockers: action.lockers,
             }
         case FETCH_LOCKERS_FAILURE:
             return {
