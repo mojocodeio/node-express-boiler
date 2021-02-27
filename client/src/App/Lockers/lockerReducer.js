@@ -3,7 +3,11 @@ import{
     FETCH_LOCKERS_SUCCESS,
     FETCH_LOCKERS_FAILURE
 } from './actions'
-const initialState = {}
+const initialState = {
+    lockerData: {
+        docs: []
+    }
+}
 
 export const lockerReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -16,12 +20,15 @@ export const lockerReducer = (state = initialState, action) => {
             }
         case FETCH_LOCKERS_SUCCESS:
             const { lockerData } = action
+            const newDocs = state.lockerData.docs.concat(lockerData.docs)
             return {
                 ...state,
                 lockersFetchLoading: false,
                 lockersFetchSuccess: true,
                 lockersFetchFailure: false,
-                lockerData,
+                lockerData: {
+                    docs: newDocs
+                },
             }
         case FETCH_LOCKERS_FAILURE:
             return {
