@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+const mongoosePaginate = require('mongoose-paginate-v2')
 
 const lockerSchema = new mongoose.Schema({
     id: { type: mongoose.ObjectId, required: true },
@@ -11,6 +12,8 @@ const lockerSchema = new mongoose.Schema({
     },
     number: { type: Number, required: true }
 }, { collection: 'lockers' })
+
+lockerSchema.plugin(mongoosePaginate)
 
 const Locker = mongoose.model('Locker', lockerSchema, 'lockers')
 

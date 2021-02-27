@@ -15,12 +15,13 @@ export const lockerReducer = (state = initialState, action) => {
                 lockersFetchFailure: false,
             }
         case FETCH_LOCKERS_SUCCESS:
+            const { lockerData } = action
             return {
                 ...state,
                 lockersFetchLoading: false,
                 lockersFetchSuccess: true,
                 lockersFetchFailure: false,
-                lockers: action.lockers,
+                lockerData,
             }
         case FETCH_LOCKERS_FAILURE:
             return {

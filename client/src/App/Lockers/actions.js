@@ -6,11 +6,11 @@ export const FETCH_LOCKERS_FAILURE = 'FETCH_LOCKERS_FAILURE'
 export const fetchLockers = () => dispatch => {
     dispatch({ type: FETCH_LOCKERS_LOADING })
 
-    axios.get('/lockers').then(({ data }) => {
+    axios.get('/lockers?page=0&limit=2').then(({ data }) => {
         console.log(data)
         return dispatch({
             type: FETCH_LOCKERS_SUCCESS,
-            lockers: data
+            lockerData: data,
         })
     }).catch(error => {
         return dispatch({

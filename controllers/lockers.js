@@ -2,15 +2,23 @@ const express = require('express')
 const router = express.Router()
 const Locker = require('../models/locker')
 
-router.get('/', (req, res) => {
-    Locker.find({}, (err, data) => {
-        if(err) {
-            res.send({ message: 'ERROR_WILL_ROBINSON' })
-        } else {
-            console.log('data', data)
-            res.send(data)
-        }
-    })
+router.get('/', async (req, res) => {
+    try {
+        const { page, limit } = req.query
+        const lockerData = await Locker.paginate(
+            { isAvailable: true },
+            {
+                limit,
+                offset: page * limit
+            }
+        )
+        res.send(lockerData)
+    } catch(error) {
+        res.send({ error: 'Sorry having trouble getting lockers' })
+    }
+
 })
+
+router.get('/:page')
 
 module.exports = router
